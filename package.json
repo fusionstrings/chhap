@@ -10,8 +10,9 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "chrome-aws-lambda": "^2.0.1",
     "express": "^4.17.1",
-    "puppeteer": "^2.0.0"
+    "puppeteer-core": "^2.0.0"
   },
   "engines": {
     "node": "12.x"

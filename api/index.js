@@ -1,18 +1,25 @@
+const chrome = require('chrome-aws-lambda');
+const puppeteer = require('puppeteer-core');
 
-const puppeteer = require('puppeteer');
+module.exports = async (request, response) => {
+    try {
+        const { url = 'https://chhap.glitch.me', type="png" } = request.query;
 
-module.exports = async (request, response)=> {
-  try {
-    const {url = 'https://chhap.glitch.me'} = request.query;
-    
-    const browser = await puppeteer.launch({
-      args: ['--no-sandbox']
-    });
-    const page = await browser.newPage();
-    await page.goto(url);
-    response.type('png').send(await page.screenshot());
-    await browser.close();
-  } catch (error) {
-    response.status(503).end(error.message);
-  }
-}
+        const urlWithProtocol = url.startsWith('http') ? url : 'https://' + url;
+        const browser = await puppeteer.launch({
+            args: chrome.args,
+            executablePath: await chrome.executablePath,
+            headless: chrome.headless
+        });
+
+        const page = await browser.newPage();
+        await page.goto(urlWithProtocol);
+        response.statusCode = 200;
+
+        response.setHeader('Content-Type', `image/${type}`);
+        response.send(await page.screenshot({ type }));
+        await browser.close();
+    } catch (error) {
+        response.status(503).end(error.message);
+    }
+};
