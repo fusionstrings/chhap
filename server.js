@@ -2,6 +2,7 @@
 // where your node app starts
 
 // init project
+const puppeteer = require('puppeteer');
 const express = require("express");
 const app = express();
 
@@ -15,6 +16,17 @@ app.use(express.static("public"));
 app.get("/", function(request, response) {
   response.sendFile(__dirname + "/views/index.html");
 });
+
+
+app.get('/api', async (request, response)=>{
+  console.log(request.query.url);
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto('https://example.com');
+  await page.screenshot({path: 'example.png'});
+
+  await browser.close();
+})
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
