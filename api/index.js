@@ -17,12 +17,12 @@ module.exports = async (request, response) => {
             headless: chrome.headless
         });
 
-        const deviceViewport = puppeteer.devices[device];
+        const deviceProfile = puppeteer.devices[device];
 
         const page = await browser.newPage();
 
-        if (deviceViewport) {
-            await page.emulate(deviceViewport);
+        if (deviceProfile) {
+            await page.emulate(deviceProfile);
         }
 
         const viewport = {
@@ -48,7 +48,7 @@ module.exports = async (request, response) => {
         await page.goto(urlWithProtocol, { waitUntil: "networkidle0" });
     
         const options = {
-            fullPage,
+            fullPage: false,
             type
         };
         options.clip = {
