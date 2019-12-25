@@ -2,8 +2,8 @@
 // where your node app starts
 
 // init project
-const puppeteer = require('puppeteer');
 const express = require("express");
+const api = require("./api/index.js");
 const app = express();
 
 // we've started you off with Express,
@@ -18,21 +18,7 @@ app.get("/", function(request, response) {
 });
 
 
-app.get('/api', async (request, response)=>{
-  try {
-    const {url = 'https://chhap.glitch.me'} = request.query;
-    
-    const browser = await puppeteer.launch({
-      args: ['--no-sandbox']
-    });
-    const page = await browser.newPage();
-    await page.goto(url);
-    response.type('png').send(await page.screenshot());
-    await browser.close();
-  } catch (error) {
-    response.status(503).end(error.message);
-  }
-})
+app.get('/api', api)
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
