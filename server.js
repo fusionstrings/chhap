@@ -20,11 +20,13 @@ app.get("/", function(request, response) {
 
 app.get('/api', async (request, response)=>{
   try {
+    const {url = 'https://chhap.glitch.me'} = request.query;
+    
     const browser = await puppeteer.launch({
       args: ['--no-sandbox']
     });
     const page = await browser.newPage();
-    await page.goto('https://developers.google.com/web/tools/puppeteer/');
+    await page.goto(url);
     response.type('png').send(await page.screenshot());
     await browser.close();
   } catch (error) {
