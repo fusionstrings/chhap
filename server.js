@@ -19,15 +19,17 @@ app.get("/", function(request, response) {
 
 
 app.get('/api', async (request, response)=>{
-  console.log(request.query.url);
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.goto('https://example.com');
-  await page.screenshot({path: 'example.png'});
-
-  await browser.close();
-  res.contentType('image/jpeg');
-    res.end(data);
+  try {
+    const browser = await puppeteer.launch({
+      args: ['--no-sandbox']
+    });
+    const page = await browser.newPage();
+    await page.goto('https://developers.google.com/web/tools/puppeteer/');
+    response.type('png').send(await page.screenshot());
+    await browser.close();
+  } catch (error) {
+    response.status(503).end(error.message);
+  }
 })
 
 // listen for requests :)
