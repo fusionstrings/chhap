@@ -1,8 +1,4 @@
 {
     "name": "chhap",
-    "version": 2,
-    "builds": [
-        { "src": "*.html", "use": "@now/static" },
-        { "src": "*.js", "use": "@now/node" }
-    ]
+    "version": 2
 }
