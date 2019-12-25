@@ -26,6 +26,8 @@ app.get('/api', async (request, response)=>{
   await page.screenshot({path: 'example.png'});
 
   await browser.close();
+  res.contentType('image/jpeg');
+    res.end(data);
 })
 
 // listen for requests :)
