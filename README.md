@@ -1,8 +1,8 @@
 Usase
 =================
 
-https://chhap.now.sh/api?url=`<url>`&size=`<w,h>`
-https://chhap.now.sh/api?url=https://www.github.com&size=400,400
+- https://chhap.now.sh/api?url=`url`&size=`w,h`
+- https://chhap.now.sh/api?url=https://www.github.com&size=400,400
 
 
 
