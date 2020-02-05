@@ -7,7 +7,8 @@ module.exports = async (request, response) => {
             url = 'https://chhap.glitch.me',
             type = 'png',
             size,
-            device = 'iPhone XR'
+            device = 'iPhone XR',
+            encoding = 'binary'
         } = request.query;
 
         const urlWithProtocol = url.startsWith('http') ? url : 'https://' + url;
@@ -49,7 +50,8 @@ module.exports = async (request, response) => {
     
         const options = {
             fullPage: false,
-            type
+            type,
+            encoding
         };
         options.clip = {
           x: 0,
