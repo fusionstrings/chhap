@@ -61,15 +61,16 @@ module.exports = async (request, response) => {
 		};
 
 		response.statusCode = 200;
-		response.setHeader('Content-Type', `image/${type}`);
 		const screenshot = await page.screenshot(options);
 		if (encoding === 'base64') {
+			console.log('encoding', encoding);
 			const data = Buffer.from(screenshot, 'base64');
 
 			response.setHeader('Content-Length', data.length);
 
 			response.send(data);
 		} else {
+			response.setHeader('Content-Type', `image/${type}`);
 			response.send(screenshot);
 		}
 
