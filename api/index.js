@@ -64,11 +64,12 @@ module.exports = async (request, response) => {
 		const screenshot = await page.screenshot(options);
 		if (encoding === 'base64') {
 			console.log('encoding', encoding);
-			const data = Buffer.from(screenshot, 'base64');
+			//const data = Buffer.from(screenshot, 'base64');
 
-			response.setHeader('Content-Length', data.length);
+			//response.setHeader('Content-Length', data.length);
 
-			response.send(data);
+			response.setHeader('Content-Type', `application/json`);
+			response.send(JSON.stringify({screenshot}));
 		} else {
 			response.setHeader('Content-Type', `image/${type}`);
 			response.send(screenshot);
